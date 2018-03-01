@@ -56,3 +56,8 @@ ec2_node_tag:    { "DeleteTag": "{{ workshop_prefix }}-{{ owner_email }}", "Name
 # Route53 Vars:
 #####################################################
 r53_zone: redhatgov.io
+
+#####################################################
+# Create | Destroy VPC Vars:
+#####################################################
+vpc_state: create
