@@ -32,31 +32,27 @@ sg_resource_tags:  { "DeleteTag": "{{ workshop_prefix }}-{{ owner_email }}", "Na
 sg_name:           "{{ workshop_prefix }}-sg"
 
 #####################################################
-# NACL Vars:
-#####################################################
-nacl_name:        "{{ workshop_prefix }}-nacl"
-
-#####################################################
-# SSH Key Vars:
-#####################################################
-ssh_key_path: "{{ lookup('env','HOME') }}"
-
-#####################################################
 # EC2 Vars:
 #####################################################
-ec2_exact_count:   1
 ec2_public_ip:     yes
-ec2_sequence:      "{{ number_master_nodes | default(1) }}"
-ec2_keypair:       "{{ workshop_prefix }}-private-key"
-ec2_ami:           "{{ ami_id }}"
+ec2_keypair:       "demo1"
+ec2_ami:           "ami-fbc89880"
+
 #####################################################
-# EC2 Master Vars:
+# EC2 Tower Vars:
 #####################################################
-ec2_master_type:   "{{ master_instance_type }}"  
-ec2_master_tag:  { "DeleteTag": "{{ workshop_prefix }}-{{ owner_email }}", "Name": "{{ workshop_prefix + '-master-' + item }}", "expiration_date": "{{ expiration_date }}", "owner_email": "{{ owner_email }}", "Workshop": "AnsibleTowerWorkshop" }
+ec2_tower_exact_count:   2
+ec2_tower_type:   "t2.medium"  
+ec2_tower_tag:  { "DeleteTag": "{{ workshop_prefix }}-{{ owner_email }}", "Name": "{{ workshop_prefix + '-tower' }}", "expiration_date": "{{ expiration_date }}", "owner_email": "{{ owner_email }}", "Workshop": "AnsibleTowerWorkshop" }
+
 #####################################################
 # EC2 Node Vars:
 #####################################################
-ec2_node_type:     "{{ node_instance_type }}"  
-ec2_node_tag:    { "DeleteTag": "{{ workshop_prefix }}-{{ owner_email }}", "Name": "{{ workshop_prefix + '-node-' + item }}", "expiration_date": "{{ expiration_date }}", "owner_email": "{{ owner_email }}", "Workshop": "AnsibleTowerWorkshop" }
+ec2_node_exact_count:   2
+ec2_node_type:     "t2.micro"  
+ec2_node_tag:    { "DeleteTag": "{{ workshop_prefix }}-{{ owner_email }}", "Name": "{{ workshop_prefix + '-node' }}", "expiration_date": "{{ expiration_date }}", "owner_email": "{{ owner_email }}", "Workshop": "AnsibleTowerWorkshop" }
 
+#####################################################
+# Route53 Vars:
+#####################################################
+r53_zone: redhatgov.io
