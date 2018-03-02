@@ -210,8 +210,8 @@
     wait: yes
   with_indexed_items: "{{ node_instances }}"
 
-- pause: 
-    minutes: 2
+# - pause: 
+#     minutes: 1
 
 - name: Refresh inventory to ensure new instaces exist in inventory
   meta: refresh_inventory
