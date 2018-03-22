@@ -201,18 +201,23 @@
 - name: Create Route 53 Node entries
   route53:
     command: create
-    zone: "{{ r53_zone }}"
+    zone:   "{{ r53_zone }}"
     record: "{{ workshop_prefix }}.node.{{ item[0] }}.{{ r53_zone }}"
     type: A
     ttl: 300
-    value: "{{ item[1].public_ip }}"
+    value:  "{{ item[1].public_ip }}"
     overwrite: yes
     wait: yes
   with_indexed_items: "{{ node_instances }}"
 
-# - pause: 
-#     minutes: 1
+- name: Add new Tower instance to inventory -> group
+  add_host:
+    name:     "{{ item.public_ip }}"
+    groups:   "{{ workshop_prefix }}-tower"
+  with_items: "{{ tower.instances }}"
 
-- name: Refresh inventory to ensure new instaces exist in inventory
-  meta: refresh_inventory
-
+- name:  Add new Node instance to inventory -> group
+  add_host:
+    name:     "{{ item.public_ip }}"
+    groups:   "{{ workshop_prefix }}-tower"
+  with_items: "{{ node.instances }}"
